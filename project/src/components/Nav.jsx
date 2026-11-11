@@ -4,23 +4,55 @@ import "./Nav.css";
 
 function Nav() {
   const [underline, setUnderline] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navItems = [
+    { key: "home", label: "Home" },
+    { key: "menu", label: "Menu" },
+    { key: "mobile-app", label: "Mobile-app" },
+    { key: "contact", label: "Contact Us" },
+  ];
+
+  const handleNavClick = (key) => {
+    setUnderline(key);
+    setIsMenuOpen(false);
+  };
 
   return (
-    <div className="nav">
-      <img src={assets.logo} alt="Logo" />
+    <div className={`nav ${isMenuOpen ? "open" : ""}`}>
+      <img src={assets.logo} alt="Logo" className="nav-logo" />
+
+      <button
+        type="button"
+        className="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded={isMenuOpen}
+        onClick={() => setIsMenuOpen((prev) => !prev)}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
       <ul className="nav-menu">
-        <li onClick={() => setUnderline("home")} className={underline === "home" ? "active" : ""}>Home</li>
-        <li onClick={() => setUnderline("menu")} className={underline === "menu" ? "active" : ""}>Menu</li>
-        <li onClick={() => setUnderline("mobile-app")} className={underline === "mobile-app" ? "active" : ""}>Mobile-app</li>
-        <li onClick={() => setUnderline("contact")} className={underline === "contact" ? "active" : ""}>Contact Us</li>
+        {navItems.map((item) => (
+          <li
+            key={item.key}
+            onClick={() => handleNavClick(item.key)}
+            className={underline === item.key ? "active" : ""}
+          >
+            {item.label}
+          </li>
+        ))}
       </ul>
+
       <div className="nav-right">
-        <img src={assets.search_icon} alt="search icon" />
+        <img src={assets.search_icon} alt="search icon" className="nav-icon" />
         <div className="nav-cart">
-          <img src={assets.basket_icon} alt="cart" />
+          <img src={assets.basket_icon} alt="cart" className="nav-icon" />
           <div className="dot"></div>
         </div>
-        <button>Sign In</button>
+        <button type="button" className="nav-signin">Sign In</button>
       </div>
     </div>
   );
