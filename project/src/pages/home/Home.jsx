@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import './Home.css';
 import Header from "../../components/Header.jsx";
 import Menu from "../../components/Menu.jsx";
@@ -7,9 +9,21 @@ import AppDownload from "../../components/AppDownload.jsx";
 
 const Home = () => {
   const [category, setCategory] = useState("All");
+  const location = useLocation();
+
+  useEffect(() => {
+    // if (!location.state?.scrollTo) {
+    //   return;
+    // }
+
+    // requestAnimationFrame(() => {
+    //   document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    // });
+    document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [location.state]);
 
   return (
-    <div>
+    <div className="home-page" id="home">
       <Header />
       <Menu category={category} setCategory={setCategory} />
       <FoodDisplay category={category} />

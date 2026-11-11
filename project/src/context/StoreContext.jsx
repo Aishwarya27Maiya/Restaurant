@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect} from "react";
+import {createContext, useState} from "react";
 import {food_list} from "../assets/assets.js"
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -15,12 +15,21 @@ function StoreContextProvider(props){
     }
 
     function removeFromCart(id){
-        setCartItems((prev)=>({...prev,[id]:prev[id]-1}));
+        setCartItems((prev)=>{
+            if(!prev[id]){
+                return prev;
+            }
+
+            if(prev[id] === 1){
+                let updatedCart = {...prev};
+                delete updatedCart[id];
+                return updatedCart;
+            }
+
+            return {...prev,[id]:prev[id]-1};
+        });
     }
-    
-    useEffect(()=>{
-        console.log(cartItems)
-    },[cartItems])
+
     let contextValue={
         food_list:food_list,
         cartItems,
