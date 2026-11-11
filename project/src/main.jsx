@@ -6,7 +6,7 @@ import StoreContextProvider from './context/StoreContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StoreContextProvider>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <App />
     </BrowserRouter>
   </StoreContextProvider>
