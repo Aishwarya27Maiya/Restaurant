@@ -12,14 +12,12 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // if (!location.state?.scrollTo) {
-    //   return;
-    // }
+    const sectionId = location.state?.scrollTo;
+    if (!sectionId) return;
 
-    // requestAnimationFrame(() => {
-    //   document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    // });
-    document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    requestAnimationFrame(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }, [location.state]);
 
   return (
